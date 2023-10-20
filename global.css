@@ -1,0 +1,90 @@
+body {
+    background-color: #000;
+    background-image: url('Oxford-aerial-view.jpg');
+    background-repeat: no-repeat;
+    background-position:top;
+	z-index: 0;
+    color: #000000;
+}
+
+#main {
+    margin: auto;
+    margin-top: 50px;
+    border: 2px solid #000000;
+    width: 340px;
+    padding: 15px;
+	border-top-right-radius: 5px 5px;
+	border-top-left-radius: 25px 25px;
+	border-bottom-right-radius: 25px 25px;
+	border-bottom-left-radius: 5px 5px;
+	box-shadow: 4px 4px 6px #222222;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+h1 {
+    color: #002147;
+    font-size: 40px;
+    margin: 20px;   
+}
+
+h2 {
+    color: #008000;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+h3 {
+    color: black;
+    font-size: 32px;
+    font-weight: bolder;
+    margin: 15px;
+}
+
+#sunrise, #tmin {
+    float: left;
+    text-align: center;
+    padding: 5px;
+}
+
+#sunset, #tmax, #press, #hum {
+    float: right;
+    text-align: center;
+    padding: 5px;
+    min-width: 80px;
+}
+
+#temp, #ciel, #vent, #titre, #majTime {
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+}
+
+#tmin, #tmax {
+    border-radius: 50%;
+    border: 2px dashed #0f288f;
+}
+
+#tmin b, #tmax b {
+    color: #8f100f;
+}
+
+#ciel {
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+#majTime span {
+    color: #8b6800;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#compass {
+    width: 150px;
+    height: 150px;
+    background-image: url('compassRose.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    float: left;
+}
