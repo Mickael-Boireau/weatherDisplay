@@ -9,27 +9,41 @@ conf.open("GET", confURL) ;
 conf.responseType = "json" ;
 conf.send() ;
 conf.onload = function () {
-    var confJson = conf.response ;
-    
-    createEl('h1', "<br>" + capital1Let(confJson["ville"]) ,'titre') ;
-    
-    var q = confJson["ville"] + "," + confJson["pays"] ;
-    var key = confJson["apiKey"] ;
-    var units = confJson["unites"] ;
-    var lang = confJson["lang"] ;
-    
-    var requestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + q + '&APPID=' + key + "&units=" + units + "&lang=" + lang ;
-    var request = new XMLHttpRequest() ;
-    request.open("GET", requestURL) ;
-    request.responseType = "json" ;
-    request.send() ;
-    request.onload = function () {
-        var weatherJson = request.response ;
-        display(weatherJson) ;
-        //console.debug(weatherJson);
-    };
+    if (conf.status != 200) {
+        document.getElementById("main").style.display = "none" ;
+        createEl("div", "<p>Le fichier de configuration n'existe pas ou présente un problème.</p>", "body", "error") ;
+    } else {
+        var confJson = conf.response ;
+        
+        createEl('h1', "<br>" + capital1Let(confJson["ville"]) ,'titre') ;
+        
+        var q = confJson["ville"] + "," + confJson["pays"] ;
+        var key = confJson["apiKey"] ;
+        var units = confJson["unites"] ;
+        var lang = confJson["lang"] ;
+        
+        var requestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + q + '&APPID=' + key + "&units=" + units + "&lang=" + lang ;
+        var request = new XMLHttpRequest() ;
+        request.open("GET", requestURL) ;
+        request.responseType = "json" ;
+        request.send() ;
+        request.onload = function () {
+            if (conf.status != 200) {
+                document.getElementById("main").style.display = "none" ;
+                createEl("div", "<p>Le fichier des données n'a pas pu être récupéré.</p>", "body", "error") ;
+            } else {
+                var weatherJson = request.response ;
+                display(weatherJson) ;
+                //console.debug(weatherJson);
+            }
+        };
+    }
     
 };
+
+conf.onerror = function () {
+    alert("La requête a échouée.") ;
+}
 
 function display(weatherJson) {
     var tmax = weatherJson["main"]["temp_max"] + "°C" ;
@@ -49,8 +63,8 @@ function display(weatherJson) {
     
     createEl('p', "Lever du jour :<br><h2>" + heure(jour) + "</h2>", 'sunrise') ;
     createEl('p', "Coucher du jour :<br><h2>" + heure(nuit) + "</h2>", 'sunset') ;
-    createEl('p', "Minimale :<br><b>" + tmin + "</b>", 'tmin') ;
-    createEl('p', "Maximale :<br><b>" + tmax + "</b>", 'tmax') ;
+    createEl('div', "Minimale :<br><b>" + tmin + "</b>", 'temp', 'tmin') ;
+    createEl('div', "Maximale :<br><b>" + tmax + "</b>", 'temp', 'tmax') ;
     createEl('p', "<h3>" + tcurrent + "</h3><br>Ressenti : " + tfeels, 'temp') ;
     createEl('p', "Humidité :<br><b>" + hum + "</b>", 'hum') ;
     createEl('p', "Pression :<br><b>" + press + "</b>", 'press') ;
@@ -60,9 +74,12 @@ function display(weatherJson) {
     oriente(ventDir) ;
 }
 
-function createEl(tag, content, place) {
+function createEl(tag, content, place, id) {
     var elementAdd = document.createElement(tag) ;
     elementAdd.innerHTML = content ;
+    if (id != null) {
+        elementAdd.id = id ;
+    }
     document.getElementById(place).appendChild(elementAdd) ;
 }
 

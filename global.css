@@ -21,6 +21,20 @@ body {
     background: rgba(255, 255, 255, 0.5);
 }
 
+#error {
+    margin: auto;
+    margin-top: 50px;
+    border: 2px solid #000000;
+    width: 340px;
+    padding: 15px;
+	border-radius: 15px 15px;
+	box-shadow: 4px 4px 6px #222222;
+    background: rgba(255, 255, 255, 0.5);
+    font-weight: bold ;
+    font-size: 18px ;
+    text-align: center ;
+}
+
 h1 {
     color: #002147;
     font-size: 40px;
@@ -63,6 +77,7 @@ h3 {
 #tmin, #tmax {
     border-radius: 50%;
     border: 2px dashed #0f288f;
+    padding: 10px;
 }
 
 #tmin b, #tmax b {
